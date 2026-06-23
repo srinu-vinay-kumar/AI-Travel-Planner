@@ -41,6 +41,9 @@
             border-color: #555;
           }
         }
+        .error-msg {
+          color: $error-color;
+        }
       }
 
       .login__container-btn {

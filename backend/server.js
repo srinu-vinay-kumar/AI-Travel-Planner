@@ -12,7 +12,10 @@ const app = express();
 // * middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://ai-travel-planner-pi-brown.vercel.app/",
+    ],
     credentials: true,
   }),
 );
