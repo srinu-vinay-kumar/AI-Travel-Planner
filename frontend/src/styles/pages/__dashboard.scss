@@ -1,0 +1,462 @@
+@use "../abstract/_variables" as *;
+@use "../abstract/_mixins" as *;
+
+//  Dashboard Layout Block
+.dashboard {
+  min-height: 100vh;
+  background-color: $background;
+  color: $font-main;
+  @include flexDisplay(
+    $flex-direction: column,
+    $align-items: stretch,
+    $justify-content: flex-start
+  );
+
+  &__loading {
+    min-height: 100vh;
+    @include flexDisplay();
+    background-color: $background;
+    color: $font-main;
+  }
+
+  &__header {
+    background-color: $surface;
+    border-bottom: 1px solid $border-color;
+    @include flexDisplay($justify-content: space-between, $align-items: center);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    padding: 1rem;
+
+    @include respond-to("md") {
+      padding: 1rem 2rem;
+    }
+  }
+
+  &__logo {
+    height: 28px;
+    @include respond-to("md") {
+      height: 32px;
+    }
+  }
+
+  &__logout-btn {
+    @include btn-base($border: 1px solid $border-color, $padding: 0.5rem 1rem);
+  }
+
+  &__main {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+    grid-template-columns: 1fr;
+
+    padding: 1rem;
+
+    @include respond-to("md") {
+      padding: 2rem;
+    }
+
+    @include respond-to("lg") {
+      grid-template-columns: 350px 1fr;
+    }
+
+    .dashboard__sidebar {
+      @include respond-to("lg") {
+        position: sticky;
+        top: 100px;
+      }
+    }
+  }
+}
+
+.trip-list {
+  &__title {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+
+    @include respond-to("md") {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__empty {
+    padding: 2rem;
+    text-align: center;
+    background-color: $surface;
+    border-radius: 12px;
+    border: 1px dashed $border-color;
+    color: $font;
+
+    @include respond-to("md") {
+      padding: 3rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+.trip-card {
+  background-color: $surface;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+  @include flexDisplay(
+    $justify-content: space-between,
+    $align-items: flex-start
+  );
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: $border-color;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  &__details {
+    margin: 0;
+    font-size: 0.9rem;
+    color: $font;
+  }
+
+  &__delete-btn {
+    @include btn-base(
+      $bg-color: rgba(217, 48, 37, 0.1),
+      $text-color: $error-color,
+      $padding: 0.5rem
+    );
+    font-size: 1.1rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $error-color;
+      color: #ffffff;
+    }
+  }
+}
+
+.trip-detail {
+  background-color: $surface;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+
+  padding: 1.25rem;
+
+  @include respond-to("md") {
+    padding: 2rem;
+  }
+
+  &__nav {
+    @include flexDisplay(
+      $flex-direction: column-reverse,
+      $align-items: stretch,
+      $gap: 1rem
+    );
+    margin-bottom: 1.5rem;
+
+    @include respond-to("md") {
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__back-btn {
+    @include btn-base(
+      $bg-color: transparent,
+      $text-color: $font,
+      $padding: 0.5rem
+    );
+    text-align: center;
+    @include respond-to("md") {
+      padding: 0;
+      text-align: left;
+    }
+
+    &:hover {
+      color: $font-main;
+    }
+  }
+
+  &__delete-btn {
+    @include btn-base(
+      $bg-color: rgba(217, 48, 37, 0.05),
+      $text-color: $error-color,
+      $border: 1px solid rgba(217, 48, 37, 0.3),
+      $padding: 0.75rem 1rem
+    );
+    &:hover {
+      background-color: $error-color;
+      color: #ffffff;
+    }
+  }
+
+  &__header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid $border-color;
+
+    @include respond-to("md") {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem 0;
+
+    @include respond-to("md") {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 0.9rem;
+    color: $font;
+    margin: 0;
+
+    @include respond-to("md") {
+      font-size: 1rem;
+    }
+  }
+
+  &__section-title {
+    margin: 2rem 0 1rem 0;
+    font-size: 1.25rem;
+
+    @include respond-to("md") {
+      margin: 2.5rem 0 1rem 0;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.itinerary-day {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background-color: $background;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+
+  @include respond-to("md") {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+  }
+
+  &__title {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    color: $btn;
+  }
+
+  &__activities {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+
+    @include respond-to("md") {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__actions {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: stretch,
+      $gap: 0.75rem
+    );
+    border-top: 1px dashed $border-color;
+    padding-top: 1rem;
+
+    @include respond-to("md") {
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+
+    @include respond-to("md") {
+      padding: 0.5rem 0.75rem;
+    }
+
+    &:focus {
+      border-color: $btn;
+    }
+  }
+
+  &__add-btn {
+    @include btn-base($padding: 0.75rem 1rem);
+
+    @include respond-to("md") {
+      @include btn-base($padding: 0.5rem 1rem);
+    }
+  }
+
+  &__regen-btn {
+    @include btn-base(
+      $bg-color: rgba(20, 20, 19, 0.04),
+      $text-color: $font-main,
+      $border: 1px solid transparent,
+      $padding: 0.75rem 1rem
+    );
+
+    @include respond-to("md") {
+      @include btn-base(
+        $bg-color: rgba(20, 20, 19, 0.04),
+        $text-color: $font-main,
+        $padding: 0.5rem 1rem
+      );
+    }
+
+    &:hover {
+      background-color: rgba(20, 20, 19, 0.08);
+      border-color: $border-color;
+    }
+  }
+}
+
+.activity {
+  @include flexDisplay(
+    $justify-content: space-between,
+    $align-items: flex-start,
+    $gap: 0.5rem
+  );
+  padding: 0.75rem 1rem;
+  background-color: $surface;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+
+  @include respond-to("md") {
+    align-items: center;
+  }
+
+  &__info {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: flex-start,
+      $gap: 0.25rem
+    );
+
+    @include respond-to("md") {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__time {
+    font-size: 0.8rem;
+    color: $font;
+    background-color: $background;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  &__remove-btn {
+    @include btn-base(
+      $bg-color: transparent,
+      $text-color: $error-color,
+      $padding: 0.25rem 0.5rem
+    );
+    font-size: 0.8rem;
+    margin-top: -0.25rem;
+
+    &:hover {
+      background-color: rgba(217, 48, 37, 0.1);
+    }
+  }
+}
+
+.packing-list {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+
+  @include respond-to("md") {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.packing-item {
+  @include flexDisplay(
+    $justify-content: flex-start,
+    $align-items: center,
+    $gap: 0.75rem
+  );
+  padding: 0.75rem 1rem;
+  background-color: $background;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  &__checkbox {
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+  }
+
+  &__name {
+    font-weight: 500;
+    flex: 1;
+    transition:
+      color 0.2s ease,
+      text-decoration 0.2s ease;
+
+    &--packed {
+      color: $font;
+      text-decoration: line-through;
+    }
+  }
+
+  &__category {
+    font-size: 0.75rem;
+    color: $font;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}

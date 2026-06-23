@@ -1,0 +1,52 @@
+@use "sass:map";
+@use "./_variables.scss" as *;
+
+@mixin flexDisplay(
+  $display: flex,
+  $flex-direction: row,
+  $align-items: center,
+  $justify-content: center,
+  $gap: 0
+) {
+  display: $display;
+  flex-direction: $flex-direction;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  gap: $gap;
+  @content;
+}
+
+@mixin btn-base(
+  $bg-color: $btn,
+  $text-color: $btn-color,
+  $border: none,
+  $padding: 1.5vh 3vw
+) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: $border;
+
+  font-weight: 700;
+  outline: none;
+  padding: $padding;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    opacity: 20%;
+  }
+
+  @content;
+}
+
+@mixin respond-to($size) {
+  @if map.has-key($breakpoints, $size) {
+    @media (min-width: map.get($breakpoints, $size)) {
+      @content;
+    }
+  } @else {
+    @error "Unfortunately, no value could be retrieved from `#{$size}`. Please make sure it is defined in the breakpoint map.";
+  }
+}

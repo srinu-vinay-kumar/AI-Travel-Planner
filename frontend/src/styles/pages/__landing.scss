@@ -1,0 +1,89 @@
+@use "../abstract/_mixins" as *;
+@use "../abstract/_variables" as *;
+
+.landing__page {
+  .landing__navbar {
+    @include flexDisplay($justify-content: space-between);
+
+    margin: 1.5rem 5vw;
+
+    @include respond-to("md") {
+      margin: 2rem 8vw;
+    }
+
+    @include respond-to("lg") {
+      margin: 2.5rem 10vw;
+    }
+
+    .landing__login-btn {
+      @include btn-base($padding: 0.5rem 1.25rem);
+
+      @include respond-to("md") {
+        @include btn-base($padding: 0.75rem 1.5rem);
+      }
+    }
+  }
+
+  .landing__hero {
+    padding: 3rem 5vw;
+    text-align: left;
+
+    @include respond-to("md") {
+      padding: 5rem 8vw;
+      text-align: center;
+      @include flexDisplay($flex-direction: column, $align-items: center);
+    }
+
+    @include respond-to("lg") {
+      padding: 7rem 10vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .landing__hero__heading {
+      color: $font-main;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin: 0;
+
+      @include respond-to("md") {
+        font-size: 3.5rem;
+      }
+
+      @include respond-to("lg") {
+        font-size: 4.5rem;
+      }
+    }
+
+    .landing__hero__desc {
+      color: $font;
+      margin-top: 1rem;
+      font-size: 1rem;
+      line-height: 1.6;
+
+      @include respond-to("md") {
+        margin-top: 1.5rem;
+        font-size: 1.15rem;
+        max-width: 600px;
+      }
+
+      @include respond-to("lg") {
+        font-size: 1.25rem;
+        max-width: 700px;
+      }
+    }
+
+    .landing__hero__btn {
+      margin-top: 2rem;
+      width: 100%;
+
+      @include btn-base($padding: 1rem);
+
+      @include respond-to("md") {
+        width: auto;
+        margin-top: 2.5rem;
+        @include btn-base($padding: 1rem 2.5rem);
+      }
+    }
+  }
+}

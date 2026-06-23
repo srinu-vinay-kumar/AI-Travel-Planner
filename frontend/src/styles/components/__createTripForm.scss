@@ -1,0 +1,114 @@
+@use "../abstract/_mixins" as *;
+@use "../abstract/_variables" as *;
+
+.trip-form {
+  background-color: $background;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(20, 20, 19, 0.08);
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 1.5rem;
+
+  @include respond-to("md") {
+    padding: 2rem;
+  }
+
+  &__title {
+    color: $font-main;
+    font-weight: 700;
+    margin-top: 0;
+    text-align: center;
+
+    font-size: 1.35rem;
+    margin-bottom: 1.25rem;
+
+    @include respond-to("md") {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__form {
+    @include flexDisplay(
+      $flex-direction: column,
+      $gap: 1.25rem,
+      $align-items: stretch
+    );
+  }
+
+  &__group {
+    @include flexDisplay(
+      $flex-direction: column,
+      $gap: 0.5rem,
+      $align-items: stretch
+    );
+  }
+
+  &__label {
+    color: $font-main;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    @include respond-to("md") {
+      font-size: 0.95rem;
+    }
+  }
+
+  &__input,
+  &__select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(20, 20, 19, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: $font-main;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: $font;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $btn;
+      box-shadow: 0 0 0 3px rgba(1, 119, 82, 0.15);
+    }
+  }
+
+  &__select {
+    cursor: pointer;
+
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23141413" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+  }
+
+  &__help-text {
+    margin: 0;
+    font-size: 0.8rem;
+    color: $font;
+  }
+
+  &__error {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $error-color;
+  }
+
+  &__btn {
+    width: 100%;
+    margin-top: 0.5rem;
+
+    &--primary {
+      @include btn-base($padding: 0.85rem 1.5rem);
+    }
+  }
+}

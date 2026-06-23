@@ -1,0 +1,16 @@
+@use "../abstract/_variables" as *;
+@use "../abstract/_mixins" as *;
+
+.protected-route {
+  min-height: 100vh;
+  background-color: $background;
+
+  @include flexDisplay();
+
+  &__text {
+    color: $font-main;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}
