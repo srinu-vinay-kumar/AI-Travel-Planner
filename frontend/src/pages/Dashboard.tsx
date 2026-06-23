@@ -1,11 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { FaArrowLeftLong, FaTrash } from "react-icons/fa6";
+import { GrRefresh } from "react-icons/gr";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import CreateTripForm from "../components/CreateTripForm";
 import Logo from "../assets/image.svg";
+import SplitText from "../components/TypeEffects/SplitText";
 
 // --- Interfaces ---
 interface Activity {
@@ -43,7 +46,7 @@ interface Trip {
 }
 
 const Dashboard = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
@@ -157,12 +160,33 @@ const Dashboard = () => {
         </button>
       </header>
 
+      {user && (
+        <div className="dashboard__welcome">
+          <div className="dashboard__greeting">
+            <span className="dashboard__greeting-text">Welcome,</span>
+            <SplitText
+              tag="span"
+              text={`${user.name.firstName} ${user.name.lastName}`}
+              className="dashboard__username"
+              delay={50}
+              duration={3}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="left"
+            />
+          </div>
+        </div>
+      )}
+
       <main className="dashboard__main">
         {/* Trip creation form */}
         <aside className="dashboard__sidebar">
           <CreateTripForm onSuccess={fetchTrips} />
         </aside>
-
         {/* Trip list or detail view */}
         <section className="dashboard__content">
           {selectedTrip ? (
@@ -172,15 +196,16 @@ const Dashboard = () => {
                 <button
                   className="trip-detail__back-btn"
                   onClick={() => setSelectedTrip(null)}
+                  aria-label="Go Back to Trips"
                 >
-                  ← Back
+                  <FaArrowLeftLong />
                 </button>
                 {/* Delete button */}
                 <button
                   onClick={() => handleDeleteTrip(selectedTrip._id)}
                   className="trip-detail__delete-btn"
                 >
-                  🗑 Delete Trip
+                  Delete Trip
                 </button>
               </div>
 
@@ -212,6 +237,7 @@ const Dashboard = () => {
                           </div>
                           <button
                             className="activity__remove-btn"
+                            aria-label="Remove single activity"
                             onClick={async () => {
                               try {
                                 const r = await api.patch(
@@ -232,7 +258,7 @@ const Dashboard = () => {
                               }
                             }}
                           >
-                            Remove
+                            <FaTrash />
                           </button>
                         </div>
                       ))}
@@ -256,7 +282,7 @@ const Dashboard = () => {
                         className="itinerary-day__regen-btn"
                         onClick={() => handleRegenerate(day.dayNumber)}
                       >
-                        ✨ Regenerate
+                        <GrRefresh /> Regenerate
                       </button>
                     </div>
                   </div>
@@ -314,9 +340,9 @@ const Dashboard = () => {
                           e.stopPropagation();
                           handleDeleteTrip(t._id);
                         }}
-                        className="btn btn--danger-icon"
+                        className="trip-detail__delete-btn"
                       >
-                        🗑 Delete
+                        Delete
                       </button>
                     </div>
                   ))}

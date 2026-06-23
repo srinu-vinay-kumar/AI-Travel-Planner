@@ -37,29 +37,29 @@ All data is strictly user-isolated — no user can view or modify another user's
 
 ### Frontend
 
-| Tool | Version | Reason |
-|---|---|---|
-| **Vite + React** | React 19 | Chosen over Next.js because of strong existing familiarity with the Vite/React workflow. Next.js was listed as preferred in the spec, but the assessment explicitly states stack changes are acceptable with justification. Shipping a working, well-structured app in a known toolchain outweighs the marginal benefit of using an unfamiliar one under time pressure. |
-| **TypeScript** | ~6.0 | Chosen over JavaScript for type safety across the frontend. TypeScript catches interface mismatches at compile time — particularly valuable when the shape of AI-generated JSON responses must match your database schema and React component props. |
-| **React Hook Form + Zod** | RHF 7, Zod 4 | Declarative, schema-driven form validation. Zod schemas act as the single source of truth for both input shape and validation messages, keeping form logic lean and readable. |
-| **Axios** | 1.18 | Centralized HTTP client with a pre-configured base URL and `withCredentials: true` — ensures auth cookies are automatically attached to every request without repeating configuration at each call site. |
-| **React Hot Toast** | 2.6 | Lightweight toast notification library for non-blocking user feedback on async operations. |
-| **SASS** | 1.101 | Chosen over Tailwind CSS because of existing comfort with component-scoped stylesheets and the BEM naming convention. SASS allows writing structured, maintainable CSS with variables, nesting, and mixins — without coupling style decisions to markup via utility classes. For a project where the UI is built from scratch rather than assembled from pre-built components, SASS gives full visual control without the learning curve of memorising Tailwind's utility vocabulary. |
+| Tool                      | Version      | Reason                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Vite + React**          | React 19     | Chosen over Next.js because of strong existing familiarity with the Vite/React workflow. Next.js was listed as preferred in the spec, but the assessment explicitly states stack changes are acceptable with justification. Shipping a working, well-structured app in a known toolchain outweighs the marginal benefit of using an unfamiliar one under time pressure.                                                                                                               |
+| **TypeScript**            | ~6.0         | Chosen over JavaScript for type safety across the frontend. TypeScript catches interface mismatches at compile time — particularly valuable when the shape of AI-generated JSON responses must match your database schema and React component props.                                                                                                                                                                                                                                  |
+| **React Hook Form + Zod** | RHF 7, Zod 4 | Declarative, schema-driven form validation. Zod schemas act as the single source of truth for both input shape and validation messages, keeping form logic lean and readable.                                                                                                                                                                                                                                                                                                         |
+| **Axios**                 | 1.18         | Centralized HTTP client with a pre-configured base URL and `withCredentials: true` — ensures auth cookies are automatically attached to every request without repeating configuration at each call site.                                                                                                                                                                                                                                                                              |
+| **React Hot Toast**       | 2.6          | Lightweight toast notification library for non-blocking user feedback on async operations.                                                                                                                                                                                                                                                                                                                                                                                            |
+| **SASS**                  | 1.101        | Chosen over Tailwind CSS because of existing comfort with component-scoped stylesheets and the BEM naming convention. SASS allows writing structured, maintainable CSS with variables, nesting, and mixins — without coupling style decisions to markup via utility classes. For a project where the UI is built from scratch rather than assembled from pre-built components, SASS gives full visual control without the learning curve of memorising Tailwind's utility vocabulary. |
 
 ### Backend
 
-| Tool | Version | Reason |
-|---|---|---|
-| **Node.js + Express** | Express 5 | Lightweight, minimal REST API layer. Express 5 ships with native async error handling, reducing the boilerplate needed around each route. |
+| Tool                   | Version    | Reason                                                                                                                                                                                                         |
+| ---------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Node.js + Express**  | Express 5  | Lightweight, minimal REST API layer. Express 5 ships with native async error handling, reducing the boilerplate needed around each route.                                                                      |
 | **MongoDB + Mongoose** | Mongoose 9 | Document-oriented storage maps naturally to the nested JSON structure returned by the AI (itinerary days → activities arrays). Mongoose schemas add a validation layer between raw AI output and the database. |
-| **bcrypt** | 6.0 | Industry-standard password hashing with configurable salt rounds. |
-| **jsonwebtoken** | 9.0 | Stateless session tokens — no server-side session store required. |
-| **cookie-parser** | 1.4 | Parses incoming cookies from request headers, enabling the auth middleware to read the JWT from `req.cookies`. |
+| **bcrypt**             | 6.0        | Industry-standard password hashing with configurable salt rounds.                                                                                                                                              |
+| **jsonwebtoken**       | 9.0        | Stateless session tokens — no server-side session store required.                                                                                                                                              |
+| **cookie-parser**      | 1.4        | Parses incoming cookies from request headers, enabling the auth middleware to read the JWT from `req.cookies`.                                                                                                 |
 
 ### AI
 
-| Tool | Reason |
-|---|---|
+| Tool                             | Reason                                                                                                                                                                                             |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Google Gemini 2.5 Flash Lite** | Fast, cost-efficient LLM with reliable structured JSON output when paired with `responseMimeType: "application/json"`. Used for itinerary generation, day regeneration, and packing list creation. |
 
 ---
@@ -79,7 +79,7 @@ All data is strictly user-isolated — no user can view or modify another user's
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/trao-ai-travel-planner.git
+git clone https://github.com/your-username/trao-ai-travel-planner.git  # replace with your repo URL
 cd trao-ai-travel-planner
 ```
 
@@ -133,10 +133,10 @@ The app will be running at `http://localhost:5173`.
 
 ### Deployed Version
 
-| Layer | Platform | URL |
-|---|---|---|
-| Frontend | Vercel | `https://your-frontend.vercel.app` |
-| Backend | Render | `https://your-backend.onrender.com` |
+| Layer    | Platform | URL                                                                                                |
+| -------- | -------- | -------------------------------------------------------------------------------------------------- |
+| Frontend | Vercel   | [https://ai-travel-planner-pi-brown.vercel.app](https://ai-travel-planner-pi-brown.vercel.app)     |
+| Backend  | Render   | [https://ai-travel-planner-api-ytcy.onrender.com](https://ai-travel-planner-api-ytcy.onrender.com) |
 
 #### Deploying the Backend (Render or Railway)
 
@@ -161,14 +161,14 @@ NODE_ENV=production
 3. Add the environment variable:
 
 ```
-VITE_API_URL=https://your-backend.onrender.com
+VITE_API_URL=https://ai-travel-planner-api-ytcy.onrender.com
 ```
 
 4. Deploy. Vercel auto-detects Vite and configures the build.
 
 > **Important:** After deploying, update your backend CORS config to allow your Vercel domain:
 > ```javascript
-> app.use(cors({ origin: "https://your-frontend.vercel.app", credentials: true }));
+> app.use(cors({ origin: "https://ai-travel-planner-pi-brown.vercel.app", credentials: true }));
 > ```
 
 ---
@@ -218,12 +218,12 @@ Gemini AI    MongoDB Trips         MongoDB Users
 
 Authentication uses **JWT stored in an httpOnly cookie** rather than localStorage.
 
-| Concern | Decision |
-|---|---|
-| Token storage | `httpOnly` cookie — inaccessible to JavaScript, preventing XSS token theft |
-| Token expiry | 5 hours (`expiresIn: "5h"`) |
-| Cookie flags | `secure: true`, `sameSite: "none"` for cross-origin support between Vercel and Render |
-| Password storage | `bcrypt.hash()` with 10 salt rounds — plaintext passwords never reach the database |
+| Concern          | Decision                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| Token storage    | `httpOnly` cookie — inaccessible to JavaScript, preventing XSS token theft            |
+| Token expiry     | 5 hours (`expiresIn: "5h"`)                                                           |
+| Cookie flags     | `secure: true`, `sameSite: "none"` for cross-origin support between Vercel and Render |
+| Password storage | `bcrypt.hash()` with 10 salt rounds — plaintext passwords never reach the database    |
 
 ### Auth Middleware
 
@@ -256,11 +256,11 @@ The AI agent replaces the tedious manual work of travel research. Instead of spe
 
 The agent is powered by **Google Gemini 2.5 Flash Lite** via direct REST API calls. Three distinct prompt operations exist:
 
-| Operation | Endpoint | What the AI does |
-|---|---|---|
-| Generate trip | `POST /trips/new-trip` | Produces the full itinerary, hotel list, cost breakdown, and packing list in one call |
-| Regenerate day | `PUT /trips/:id/regenerate-day` | Replaces only the activities for a specific day based on user feedback |
-| (Packing assistant) | Included in trip generation | Produces a categorized packing checklist based on destination and planned activities |
+| Operation           | Endpoint                        | What the AI does                                                                      |
+| ------------------- | ------------------------------- | ------------------------------------------------------------------------------------- |
+| Generate trip       | `POST /trips/new-trip`          | Produces the full itinerary, hotel list, cost breakdown, and packing list in one call |
+| Regenerate day      | `PUT /trips/:id/regenerate-day` | Replaces only the activities for a specific day based on user feedback                |
+| (Packing assistant) | Included in trip generation     | Produces a categorized packing checklist based on destination and planned activities  |
 
 ### Prompt Engineering
 
@@ -284,12 +284,12 @@ Every generated trip includes an AI-produced **packing checklist** — not a gen
 
 Travelers frequently pack wrong. A standard packing list doesn't know you're hiking in Hokkaido in November or attending a business conference in Singapore in July. This feature instructs the AI to act as a packing specialist with full context of the trip it just planned, producing a checklist divided into four categories:
 
-| Category | Examples |
-|---|---|
-| `Documents` | Passport, travel insurance, visa |
-| `Clothing` | Waterproof jacket, formal wear, swimwear |
-| `Gear` | Hiking boots, power adapter, sunscreen |
-| `Other` | Medication, local currency, transit card |
+| Category    | Examples                                 |
+| ----------- | ---------------------------------------- |
+| `Documents` | Passport, travel insurance, visa         |
+| `Clothing`  | Waterproof jacket, formal wear, swimwear |
+| `Gear`      | Hiking boots, power adapter, sunscreen   |
+| `Other`     | Medication, local currency, transit card |
 
 ### How it works
 

@@ -1,7 +1,29 @@
 @use "../abstract/_variables" as *;
 @use "../abstract/_mixins" as *;
 
+input[type="password"] {
+  &::-webkit-reveal,
+  &::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden !important;
+    appearance: none !important;
+  }
+
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none !important;
+  }
+}
+
+.split-parent {
+  display: block !important;
+  width: 100%;
+  overflow: hidden;
+}
+
 .login__page {
+  @include flexDisplay();
+  padding: 1rem;
   min-height: 100vh;
 
   @include flexDisplay();
@@ -44,6 +66,22 @@
         .error-msg {
           color: $error-color;
         }
+        .form__password-wrapper {
+          @include flexDisplay($gap: 0.3rem);
+          padding: 0 1rem;
+          width: 100%;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          outline: none;
+          transition: border-color 0.2s ease-in-out;
+          & input {
+            border: 0;
+          }
+          .form__password-toggle {
+            background-color: transparent;
+            border: none;
+          }
+        }
       }
 
       .login__container-btn {
@@ -55,6 +93,15 @@
 
       .login__container__register {
         @include flexDisplay($justify-content: space-between);
+        width: 100%;
+
+        .login__register-btn {
+          background-color: transparent;
+          border: none;
+          text-decoration: underline;
+          color: $btn;
+          cursor: pointer;
+        }
       }
     }
   }

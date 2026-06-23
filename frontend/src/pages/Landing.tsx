@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import Logo from "../assets/image.svg";
+import TextType from "../components/TypeEffects/TextType";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -28,7 +29,14 @@ const Landing = () => {
       </nav>
       <section className="landing__hero">
         <h2 className="landing__hero__heading">
-          Design your dream escape in seconds.
+          <TextType
+            text={["Design your dream escape in seconds."]} // Use 'text', not 'texts'
+            typingSpeed={100}
+            pauseDuration={1500}
+            showCursor
+            cursorCharacter="_"
+            deletingSpeed={50}
+          />
         </h2>
         <p className="landing__hero__desc">
           Ditch the endless browser tabs and spreadsheets. Tell our AI your

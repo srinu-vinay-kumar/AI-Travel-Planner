@@ -1,33 +1,20 @@
 @use "../abstract/_variables" as *;
 @use "../abstract/_mixins" as *;
 
-//  Dashboard Layout Block
 .dashboard {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: $background;
-  color: $font-main;
-  @include flexDisplay(
-    $flex-direction: column,
-    $align-items: stretch,
-    $justify-content: flex-start
-  );
-
-  &__loading {
-    min-height: 100vh;
-    @include flexDisplay();
-    background-color: $background;
-    color: $font-main;
-  }
 
   &__header {
-    background-color: $surface;
-    border-bottom: 1px solid $border-color;
-    @include flexDisplay($justify-content: space-between, $align-items: center);
+    @include flexDisplay($justify-content: space-between);
+    padding: 0.75rem 1rem;
     position: sticky;
     top: 0;
-    z-index: 10;
-
-    padding: 1rem;
+    z-index: 100;
+    background-color: $surface;
+    border-bottom: 1px solid $border-color;
 
     @include respond-to("md") {
       padding: 1rem 2rem;
@@ -35,251 +22,218 @@
   }
 
   &__logo {
-    height: 28px;
+    height: 32px;
+    width: auto;
+
     @include respond-to("md") {
-      height: 32px;
+      height: 36px;
     }
   }
 
   &__logout-btn {
-    @include btn-base($border: 1px solid $border-color, $padding: 0.5rem 1rem);
-  }
-
-  &__main {
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
-
-    display: grid;
-    gap: 2rem;
-    align-items: start;
-    grid-template-columns: 1fr;
-
-    padding: 1rem;
+    @include btn-base($padding: 0.45rem 1rem);
+    border-radius: 6px;
 
     @include respond-to("md") {
-      padding: 2rem;
+      padding: 0.5rem 1.25rem;
+    }
+  }
+
+  &__welcome {
+    padding: 1.25rem 1rem 0;
+
+    @include respond-to("md") {
+      padding: 1.5rem 1.5rem 0;
     }
 
     @include respond-to("lg") {
-      grid-template-columns: 350px 1fr;
+      padding: 2rem 2rem 0;
+    }
+  }
+
+  &__greeting {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.2;
+
+    .split-parent {
+      display: inline-block !important;
+      overflow: hidden !important;
+      padding-bottom: 0.15em;
+      vertical-align: bottom;
     }
 
-    .dashboard__sidebar {
-      @include respond-to("lg") {
-        position: sticky;
-        top: 100px;
-      }
+    @include respond-to("sm") {
+      font-size: 1.5rem;
+      gap: 0.3rem;
     }
+
+    @include respond-to("md") {
+      font-size: 1.75rem;
+      gap: 0.35rem;
+    }
+
+    @include respond-to("lg") {
+      font-size: 2rem;
+      gap: 0.4rem;
+    }
+  }
+
+  &__greeting-text {
+    display: inline-block;
+    line-height: inherit;
+  }
+
+  &__username {
+    font-weight: 700;
+    color: $font-main;
+    line-height: inherit;
+  }
+
+  &__main {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: stretch,
+      $gap: 1.25rem
+    );
+    padding: 1rem;
+    flex: 1;
+
+    @include respond-to("md") {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    @include respond-to("lg") {
+      gap: 2rem;
+      padding: 2rem;
+    }
+  }
+
+  &__sidebar {
+    width: 100%;
+    flex-shrink: 0;
+
+    @include respond-to("md") {
+      width: 280px;
+    }
+
+    @include respond-to("lg") {
+      width: 320px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
   }
 }
 
 .trip-list {
   &__title {
-    margin-top: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
     margin-bottom: 1.25rem;
-    font-size: 1.5rem;
+    color: $font-main;
 
     @include respond-to("md") {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       margin-bottom: 1.5rem;
     }
   }
 
   &__empty {
-    padding: 2rem;
+    @include flexDisplay($flex-direction: column, $gap: 0.5rem);
+    padding: 2rem 1.25rem;
     text-align: center;
-    background-color: $surface;
+    border: 2px dashed $border-color;
     border-radius: 12px;
-    border: 1px dashed $border-color;
     color: $font;
 
     @include respond-to("md") {
-      padding: 3rem;
+      padding: 3rem 2rem;
     }
   }
 
   &__grid {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+
+    @include respond-to("sm") {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
   }
 }
 
 .trip-card {
-  background-color: $surface;
-  padding: 1.25rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
   @include flexDisplay(
     $justify-content: space-between,
-    $align-items: flex-start
+    $align-items: flex-start,
+    $gap: 0.75rem
   );
+  padding: 1rem;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: $surface;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-color: $border-color;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  @include respond-to("md") {
+    padding: 1.25rem;
   }
 
   &__content {
     flex: 1;
+    min-width: 0;
   }
 
   &__title {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-
-  &__details {
-    margin: 0;
-    font-size: 0.9rem;
-    color: $font;
-  }
-
-  &__delete-btn {
-    @include btn-base(
-      $bg-color: rgba(217, 48, 37, 0.1),
-      $text-color: $error-color,
-      $padding: 0.5rem
-    );
-    font-size: 1.1rem;
-    border-radius: 50%;
-
-    &:hover {
-      background-color: $error-color;
-      color: #ffffff;
-    }
-  }
-}
-
-.trip-detail {
-  background-color: $surface;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-
-  padding: 1.25rem;
-
-  @include respond-to("md") {
-    padding: 2rem;
-  }
-
-  &__nav {
-    @include flexDisplay(
-      $flex-direction: column-reverse,
-      $align-items: stretch,
-      $gap: 1rem
-    );
-    margin-bottom: 1.5rem;
-
-    @include respond-to("md") {
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-  }
-
-  &__back-btn {
-    @include btn-base(
-      $bg-color: transparent,
-      $text-color: $font,
-      $padding: 0.5rem
-    );
-    text-align: center;
-    @include respond-to("md") {
-      padding: 0;
-      text-align: left;
-    }
-
-    &:hover {
-      color: $font-main;
-    }
-  }
-
-  &__delete-btn {
-    @include btn-base(
-      $bg-color: rgba(217, 48, 37, 0.05),
-      $text-color: $error-color,
-      $border: 1px solid rgba(217, 48, 37, 0.3),
-      $padding: 0.75rem 1rem
-    );
-    &:hover {
-      background-color: $error-color;
-      color: #ffffff;
-    }
-  }
-
-  &__header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid $border-color;
-
-    @include respond-to("md") {
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-    }
-  }
-
-  &__title {
-    font-size: 1.75rem;
-    margin: 0 0 0.5rem 0;
-
-    @include respond-to("md") {
-      font-size: 2.2rem;
-    }
-  }
-
-  &__subtitle {
-    font-size: 0.9rem;
-    color: $font;
-    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: $font-main;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @include respond-to("md") {
       font-size: 1rem;
     }
   }
 
-  &__section-title {
-    margin: 2rem 0 1rem 0;
-    font-size: 1.25rem;
+  &__details {
+    font-size: 0.78rem;
+    color: $font;
+    margin: 0;
 
     @include respond-to("md") {
-      margin: 2.5rem 0 1rem 0;
-      font-size: 1.4rem;
+      font-size: 0.8rem;
     }
   }
 }
 
-.itinerary-day {
-  margin-bottom: 1.5rem;
-  padding: 1.25rem;
-  background-color: $background;
-  border-radius: 8px;
-  border: 1px solid $border-color;
-
-  @include respond-to("md") {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-  }
-
-  &__title {
-    margin: 0 0 1rem 0;
-    font-size: 1.2rem;
-    color: $btn;
-  }
-
-  &__activities {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+.trip-detail {
+  &__nav {
+    @include flexDisplay(
+      $justify-content: space-between,
+      $align-items: center,
+      $gap: 1rem
+    );
     margin-bottom: 1.25rem;
 
     @include respond-to("md") {
@@ -287,176 +241,312 @@
     }
   }
 
+  &__back-btn {
+    @include flexDisplay($align-items: center, $gap: 0.4rem);
+    padding: 0.45rem 0.85rem;
+    background: none;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.825rem;
+    color: $font-main;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    @include respond-to("md") {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__delete-btn {
+    @include btn-base($padding: 0.45rem 0.85rem) {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      font-weight: 600;
+      border-radius: 6px;
+
+      &:hover {
+        opacity: 1;
+        background-color: #fecaca;
+      }
+    }
+
+    @include respond-to("md") {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  &__header {
+    margin-bottom: 1.25rem;
+
+    @include respond-to("md") {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: $font-main;
+
+    @include respond-to("sm") {
+      font-size: 1.5rem;
+    }
+
+    @include respond-to("md") {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 0.825rem;
+    color: $font;
+    margin: 0;
+
+    @include respond-to("md") {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__itinerary {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: stretch,
+      $gap: 1rem
+    );
+    margin-bottom: 2rem;
+
+    @include respond-to("md") {
+      gap: 1.25rem;
+    }
+  }
+
+  &__packing {
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-color;
+
+    @include respond-to("md") {
+      padding-top: 1.75rem;
+    }
+  }
+
+  &__section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $font-main;
+
+    @include respond-to("md") {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.itinerary-day {
+  padding: 1rem;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  background-color: $surface;
+
+  @include respond-to("md") {
+    padding: 1.25rem;
+  }
+
+  &__title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: $font-main;
+
+    @include respond-to("md") {
+      font-size: 0.95rem;
+    }
+  }
+
+  &__activities {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: stretch,
+      $gap: 0.5rem
+    );
+    margin-bottom: 1rem;
+  }
+
   &__actions {
     @include flexDisplay(
       $flex-direction: column,
       $align-items: stretch,
-      $gap: 0.75rem
+      $gap: 0.5rem
     );
-    border-top: 1px dashed $border-color;
-    padding-top: 1rem;
 
-    @include respond-to("md") {
+    @include respond-to("sm") {
       flex-direction: row;
       align-items: center;
       flex-wrap: wrap;
     }
   }
 
-  &__input {
-    flex: 1;
-    min-width: 150px;
-    padding: 0.75rem;
-    border: 1px solid $border-color;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    outline: none;
-
-    @include respond-to("md") {
-      padding: 0.5rem 0.75rem;
-    }
-
-    &:focus {
-      border-color: $btn;
-    }
-  }
-
-  &__add-btn {
-    @include btn-base($padding: 0.75rem 1rem);
-
-    @include respond-to("md") {
-      @include btn-base($padding: 0.5rem 1rem);
-    }
-  }
-
+  &__add-btn,
   &__regen-btn {
-    @include btn-base(
-      $bg-color: rgba(20, 20, 19, 0.04),
-      $text-color: $font-main,
-      $border: 1px solid transparent,
-      $padding: 0.75rem 1rem
-    );
-
-    @include respond-to("md") {
-      @include btn-base(
-        $bg-color: rgba(20, 20, 19, 0.04),
-        $text-color: $font-main,
-        $padding: 0.5rem 1rem
-      );
-    }
-
-    &:hover {
-      background-color: rgba(20, 20, 19, 0.08);
-      border-color: $border-color;
-    }
+    @include btn-base($padding: 0.45rem 0.9rem);
+    @include flexDisplay($align-items: center, $gap: 0.35rem);
+    border-radius: 6px;
+    font-size: 0.825rem;
+    white-space: nowrap;
   }
 }
 
 .activity {
   @include flexDisplay(
     $justify-content: space-between,
-    $align-items: flex-start,
-    $gap: 0.5rem
+    $align-items: center,
+    $gap: 0.75rem
   );
-  padding: 0.75rem 1rem;
-  background-color: $surface;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-
-  @include respond-to("md") {
-    align-items: center;
-  }
+  padding: 0.6rem 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
 
   &__info {
     @include flexDisplay(
       $flex-direction: column,
       $align-items: flex-start,
-      $gap: 0.25rem
+      $gap: 0.15rem
     );
+    flex: 1;
+    min-width: 0;
 
-    @include respond-to("md") {
+    @include respond-to("sm") {
       flex-direction: row;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
   }
 
   &__title {
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $font-main;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include respond-to("md") {
+      font-size: 0.875rem;
+    }
   }
 
   &__time {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     color: $font;
-    background-color: $background;
-    padding: 0.2rem 0.5rem;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 0.15rem 0.45rem;
     border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    @include respond-to("md") {
+      font-size: 0.75rem;
+    }
   }
 
   &__remove-btn {
-    @include btn-base(
-      $bg-color: transparent,
-      $text-color: $error-color,
-      $padding: 0.25rem 0.5rem
-    );
-    font-size: 0.8rem;
-    margin-top: -0.25rem;
+    @include flexDisplay($align-items: center);
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #dc2626;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: rgba(217, 48, 37, 0.1);
+      background-color: #fee2e2;
     }
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+  color: $font-main;
+  background-color: $surface;
+
+  &:focus {
+    border-color: #555;
+  }
+
+  @include respond-to("sm") {
+    width: auto;
+    flex: 1;
+    min-width: 120px;
   }
 }
 
 .packing-list {
   display: grid;
-  gap: 0.75rem;
   grid-template-columns: 1fr;
+  gap: 0.6rem;
+
+  @include respond-to("sm") {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 
   @include respond-to("md") {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
 .packing-item {
-  @include flexDisplay(
-    $justify-content: flex-start,
-    $align-items: center,
-    $gap: 0.75rem
-  );
-  padding: 0.75rem 1rem;
-  background-color: $background;
-  border-radius: 6px;
+  @include flexDisplay($align-items: center, $gap: 0.6rem);
+  padding: 0.6rem 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  background-color: $surface;
+  transition: background-color 0.15s ease;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.02);
   }
 
   &__checkbox {
-    width: 1.1rem;
-    height: 1.1rem;
+    flex-shrink: 0;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
+    accent-color: $btn;
   }
 
   &__name {
-    font-weight: 500;
     flex: 1;
+    font-size: 0.875rem;
+    color: $font-main;
     transition:
       color 0.2s ease,
       text-decoration 0.2s ease;
 
     &--packed {
-      color: $font;
       text-decoration: line-through;
+      color: $font;
     }
   }
 
   &__category {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: $font;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 }

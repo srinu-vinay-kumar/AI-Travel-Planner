@@ -5,6 +5,7 @@ import { z } from "zod";
 import toast from "react-hot-toast";
 import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 import api from "../api/axios.ts";
 import Register from "../components/Register.tsx";
@@ -24,6 +25,7 @@ const Login = () => {
   const { isAuthenticated, checkAuth } = useAuth();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -80,22 +82,39 @@ const Login = () => {
 
           <section className="login__container--form-group">
             <label>Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              {...register("password")}
-            />
+
+            <div className="form__password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form__input"
+                placeholder="••••••••"
+                {...register("password")}
+              />
+
+              <button
+                type="button"
+                className="form__password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+
             {errors.password && (
               <p className="error-msg">{errors.password.message}</p>
             )}
           </section>
-
           <button type="submit" className="login__container-btn">
             Log In
           </button>
           <div className="login__container__register">
             <p className="login__container__register__text">New User? </p>
-            <button type="button" onClick={() => setIsModalOpen(true)}>
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="login__register-btn"
+            >
               Register here
             </button>
           </div>

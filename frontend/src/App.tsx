@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   );

@@ -12,7 +12,7 @@
     }
 
     @include respond-to("lg") {
-      margin: 2.5rem 10vw;
+      margin: 1rem 5vw;
     }
 
     .landing__login-btn {
@@ -35,9 +35,11 @@
     }
 
     @include respond-to("lg") {
-      padding: 7rem 10vw;
+      padding: 3rem 10vw;
       max-width: 1200px;
       margin: 0 auto;
+
+      @include flexDisplay($flex-direction: column);
     }
 
     .landing__hero__heading {

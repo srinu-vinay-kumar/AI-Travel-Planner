@@ -1,0 +1,8 @@
+@use "../abstract/_mixins" as *;
+
+.not-found {
+  @include flexDisplay($flex-direction: column, $gap: 4vh);
+
+  min-height: 100vh;
+  background-color: #0a0a0a;
+}
