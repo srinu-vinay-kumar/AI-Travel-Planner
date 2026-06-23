@@ -327,6 +327,150 @@
     }
   }
 
+  &__hotels,
+  &__budget {
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-color;
+    margin-bottom: 1.5rem;
+
+    @include respond-to("md") {
+      padding-top: 1.75rem;
+    }
+  }
+
+  &__empty {
+    font-size: 0.875rem;
+    color: $font;
+  }
+}
+
+.hotel-list {
+  @include flexDisplay(
+    $flex-direction: column,
+    $align-items: stretch,
+    $gap: 0.75rem
+  );
+
+  @include respond-to("md") {
+    gap: 1rem;
+  }
+}
+
+.hotel-card {
+  @include flexDisplay(
+    $justify-content: space-between,
+    $align-items: center,
+    $gap: 1rem
+  );
+  padding: 1rem;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  background-color: $surface;
+  flex-wrap: wrap;
+
+  @include respond-to("sm") {
+    flex-wrap: nowrap;
+  }
+
+  &__info {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: flex-start,
+      $gap: 0.3rem
+    );
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $font-main;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__tier {
+    font-size: 0.75rem;
+    color: $font;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  &__meta {
+    @include flexDisplay(
+      $flex-direction: column,
+      $align-items: flex-end,
+      $gap: 0.25rem
+    );
+    flex-shrink: 0;
+  }
+
+  &__cost {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $btn;
+  }
+
+  &__cost-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $font;
+    margin-left: 0.1rem;
+  }
+
+  &__rating {
+    font-size: 0.8rem;
+    color: $font;
+  }
+}
+
+.budget-breakdown {
+  @include flexDisplay($flex-direction: column, $align-items: stretch, $gap: 0);
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: $surface;
+
+  &__row {
+    @include flexDisplay($justify-content: space-between, $align-items: center);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--total {
+      background-color: rgba($btn, 0.06);
+
+      .budget-breakdown__label,
+      .budget-breakdown__value {
+        font-weight: 700;
+        font-size: 1rem;
+        color: $font-main;
+      }
+    }
+
+    @include respond-to("md") {
+      padding: 0.85rem 1.25rem;
+    }
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    color: $font;
+  }
+
+  &__value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $font-main;
+  }
+
   &__packing {
     padding-top: 1.5rem;
     border-top: 1px solid $border-color;

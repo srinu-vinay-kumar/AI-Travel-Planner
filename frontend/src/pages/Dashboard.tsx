@@ -28,6 +28,14 @@ interface PackingItem {
   category: string;
   isPacked: boolean;
 }
+
+interface Hotel {
+  _id?: string;
+  name: string;
+  tier: string;
+  estimatedCostNightUSD: number;
+  rating: string;
+}
 interface Trip {
   _id: string;
   destination: string;
@@ -36,6 +44,7 @@ interface Trip {
   interests?: string[];
   itinerary: ItineraryDay[];
   packingList: PackingItem[];
+  hotels: Hotel[];
   estimatedBudget: {
     total: number;
     accommodation: number;
@@ -287,6 +296,79 @@ const Dashboard = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Hotels */}
+              <div className="trip-detail__hotels">
+                <h3 className="trip-detail__section-title">
+                  Recommended Hotels
+                </h3>
+                <div className="hotel-list">
+                  {selectedTrip.hotels && selectedTrip.hotels.length > 0 ? (
+                    selectedTrip.hotels.map((hotel, i) => (
+                      <div className="hotel-card" key={hotel._id ?? i}>
+                        <div className="hotel-card__info">
+                          <h4 className="hotel-card__name">{hotel.name}</h4>
+                          <span className="hotel-card__tier">{hotel.tier}</span>
+                        </div>
+                        <div className="hotel-card__meta">
+                          <span className="hotel-card__cost">
+                            ${hotel.estimatedCostNightUSD}
+                            <span className="hotel-card__cost-label">
+                              /night
+                            </span>
+                          </span>
+                          <span className="hotel-card__rating">
+                            ⭐ {hotel.rating}
+                          </span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="trip-detail__empty">
+                      No hotel suggestions available.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Estimated Budget */}
+              <div className="trip-detail__budget">
+                <h3 className="trip-detail__section-title">Estimated Budget</h3>
+                <div className="budget-breakdown">
+                  <div className="budget-breakdown__row">
+                    <span className="budget-breakdown__label">Transport</span>
+                    <span className="budget-breakdown__value">
+                      ${selectedTrip.estimatedBudget.transport}
+                    </span>
+                  </div>
+                  <div className="budget-breakdown__row">
+                    <span className="budget-breakdown__label">
+                      Accommodation
+                    </span>
+                    <span className="budget-breakdown__value">
+                      ${selectedTrip.estimatedBudget.accommodation}
+                    </span>
+                  </div>
+                  <div className="budget-breakdown__row">
+                    <span className="budget-breakdown__label">Food</span>
+                    <span className="budget-breakdown__value">
+                      ${selectedTrip.estimatedBudget.food}
+                    </span>
+                  </div>
+                  <div className="budget-breakdown__row">
+                    <span className="budget-breakdown__label">Activities</span>
+                    <span className="budget-breakdown__value">
+                      ${selectedTrip.estimatedBudget.activities}
+                    </span>
+                  </div>
+                  <div className="budget-breakdown__row budget-breakdown__row--total">
+                    <span className="budget-breakdown__label">Total</span>
+                    <span className="budget-breakdown__value">
+                      ${selectedTrip.estimatedBudget.total}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Packing list */}
